@@ -1,6 +1,0 @@
-<apex:page standardController="Account">
-  <apex:form >
-      <apex:inputField value="{!Account.dependant__c}"/>
-      <apex:inputField value="{!Account.industry}"/>
-  </apex:form>
-</apex:page>

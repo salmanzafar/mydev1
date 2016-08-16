@@ -1,0 +1,42 @@
+<apex:page controller="contSortAccountsClone" tabStyle="Account" >
+    <apex:form >
+    <apex:pageBlock title="Accounts">
+    <apex:actionStatus id="status" startText="Please Wait...." startStyle="font-weight:bold;" />
+        <apex:pageBlockTable value="{!lstSortAccounts}" var="Acc" id="pgBlockTable">
+            <apex:column >
+            <apex:facet name="header">   
+                    <apex:commandLink value="Account Name {!IF(SortFieldAccounts=='AccountName',IF(SortOrderAccounts='Ascending','▼','▲'),'')}" action="{!doSortAccounts}" reRender="pgBlockTable" status="status" >
+                        <apex:param name="AccountName" value="AccountName" assignTo="{!SortFieldAccounts}" ></apex:param>
+                    </apex:commandLink>
+                    <!--<apex:outputLabel value="{!IF(SortFieldAccounts=='AccountName',IF(SortFieldAccounts='Ascending','↓','↑'),'')}"> </apex:outputLabel> -->
+            </apex:facet>    
+            <a href="/{!Acc.account.Id}">{!Acc.account.Name}</a>
+            <!--<apex:outputLink value="/{!Acc.account.Id}" onclick="redirectRecordUrl('{!Acc.account.Id}');">{!Acc.account.Name}</apex:outputLink>-->
+            </apex:column>
+            
+            <apex:column >
+            <apex:facet name="header">   
+                    <apex:commandLink value="Account Type {!IF(SortFieldAccounts=='AccountType',IF(SortOrderAccounts='Ascending','▼','▲'),'')}" action="{!doSortAccounts}" reRender="pgBlockTable" status="status" >
+                        <apex:param name="AccountType" value="AccountType" assignTo="{!SortFieldAccounts}" ></apex:param>
+                    </apex:commandLink>
+                    <!--<apex:outputLabel value="{!IF(SortFieldAccounts=='AccountName',IF(SortFieldAccounts='Ascending','↓','↑'),'')}"> </apex:outputLabel> -->
+            </apex:facet>    
+            {!Acc.account.Type}
+            <!--<apex:outputLink value="/{!Acc.account.Id}" onclick="redirectRecordUrl('{!Acc.account.Id}');">{!Acc.account.Name}</apex:outputLink>-->
+            </apex:column>
+            
+            <apex:column >
+            <apex:facet name="header">   
+                    <apex:commandLink value="Last Modified Date {!IF(SortFieldAccounts=='LastModifiedDate',IF(SortOrderAccounts='Ascending','▼','▲'),'')}" action="{!doSortAccounts}" reRender="pgBlockTable" status="status" >
+                        <apex:param name="LastModifiedDate" value="LastModifiedDate" assignTo="{!SortFieldAccounts}" ></apex:param>
+                    </apex:commandLink>
+                    <!--<apex:outputLabel value="{!IF(SortFieldAccounts=='AccountName',IF(SortFieldAccounts='Ascending','↓','↑'),'')}"> </apex:outputLabel> -->
+            </apex:facet>    
+            {!Acc.account.LastModifiedDate}
+            <!--<apex:outputLink value="/{!Acc.account.Id}" onclick="redirectRecordUrl('{!Acc.account.Id}');">{!Acc.account.Name}</apex:outputLink>-->
+            </apex:column>
+        </apex:pageBlockTable> 
+    </apex:pageBlock> 
+    
+    </apex:form>   
+</apex:page>

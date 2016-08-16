@@ -1,0 +1,111 @@
+<apex:page controller="SearchAccounts">
+    <apex:form >
+        <style>
+        /*.searchBar{
+            width : 500px;
+            height : 20px;
+        }
+        .widgetDiv{
+            margin-top:5%;
+            margin-left:10%;
+        }*/
+        .ui-autocomplete-loading { background: white url('/img/loading.gif') right center no-repeat; }
+        </style>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'/>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js'/>
+        <apex:stylesheet value="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+        <!-- <apex:sectionHeader subtitle="Search Accounts" /> -->
+        <div class="ui-widget widgetDiv">
+            <label for="account">Account Name: </label>
+            <input id="searchTerm" class="searchBar"/>&nbsp;&nbsp;
+            <!-- <div class="btn" onclick="createAccount();" style="padding-left:10px;padding-right:10px;font-size:1.3em">+</div> -->
+        </div>
+        <script type='text/javascript'>
+            var j$ = jQuery.noConflict();
+            j$(document).ready(function() {
+                var accounts;
+                var queryTerm;
+                j$('#searchTerm').autocomplete({
+                    minLength: 2,
+                    source: function(request, response) {
+                                queryTerm = request.term;
+                                SearchAccounts.searchFor(request.term, function(result, event){
+                                    if(event.type == 'exception') {
+                                          alert(event.message);
+                                    } else {
+                                         accounts = result;
+                                         //if(accounts.length == 0){
+                                            accounts.push({Name : 'Create New Account'});
+                                        // }
+                                         response(accounts);
+                                    }
+                                });
+                           },
+                    focus: function( event, ui ) {
+                            var value = ui.item.Name;
+                            if(typeof ui.item.ShippingCity != 'undefined'){
+                                value += ', '+ui.item.ShippingCity;
+                            }
+                            if(typeof ui.item.ShippingState != 'undefined'){
+                                value += ', '+ui.item.ShippingState;
+                            }
+                            if(value != 'Create New Account'){
+                                j$('#searchTerm').val( value );
+                            }
+                            return false;
+                            },
+                    select: function( event, ui ) {
+                                var value;
+                                var id = getUrlVars()["ide"];
+                                if(ui.item.Name == 'Create New Account'){
+                                    value = j$('#searchTerm').val();
+                                    window.location.href = 'https://' + document.domain + '/apex/createaccount?ide='+ id ;
+                                }else{
+                                    value = ui.item.Name;
+                                    if(typeof ui.item.ShippingCity != 'undefined'){
+                                        value += ', '+ui.item.ShippingCity;
+                                    }
+                                    if(typeof ui.item.ShippingState != 'undefined'){
+                                        value += ', '+ui.item.ShippingState;
+                                    }
+                                    j$('#searchTerm').val( value );
+                                    window.location.href = 'https://' + document.domain + '/apex/PreviousOrderCustomer?aId='+ ui.item.Id +'&ide='+ id ;
+                                }
+                                return false;
+                            },
+                 })
+                 .data( 'autocomplete' )._renderItem = function( ul, item ) {
+                    var value = item.Name;
+                    if(typeof item.ShippingCity != 'undefined'){
+                        value += ', '+item.ShippingCity;
+                    }
+                    if(typeof item.ShippingState != 'undefined'){
+                        value += ', '+item.ShippingState;
+                    }
+                    var entry = '<a>' + value;
+                    entry = entry.replace(queryTerm, '<b>' + queryTerm + '</b>');
+                    return j$( '<li></li>' )
+                        .data( 'item.autocomplete', item )
+                        .append( entry )
+                        .appendTo(ul);
+                };
+            });
+            /*function createAccount(){
+                window.location.href = 'https://' + document.domain + '/setup/ui/recordtypeselect.jsp?ent=Account&retURL=%2F001%2Fo&save_new_url=%2F001%2Fe%3FretURL%3D%252F001%252Fo' ;
+            }*/
+            
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }            
+        </script>
+    </apex:form> 
+</apex:page>

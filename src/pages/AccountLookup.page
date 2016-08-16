@@ -1,0 +1,12 @@
+<apex:page standardController="Account" extensions="CtrlAccountLookup" >
+    <apex:outputLabel value="{!Account.Name}"></apex:outputLabel>
+    <apex:form >
+        <apex:inputField value="{!Account.Name}"/>
+        <apex:inputField value="{!Account.ParentId}"/>
+        
+        <apex:inputField value="{!cont.AccountId}"/>
+        
+    </apex:form>
+    
+    
+</apex:page>

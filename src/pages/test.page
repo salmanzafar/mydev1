@@ -1,0 +1,5 @@
+<apex:page standardController="Account" >
+  <apex:pageBlock >
+  {!Account.name&Account.name}
+  </apex:pageBlock>
+</apex:page>

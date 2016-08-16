@@ -6,10 +6,6 @@
     </types>
     <types>
         <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -18,7 +14,7 @@
     </types>
     <types>
         <members>*</members>
-        <name>StaticResource</name>
+        <name>CustomObject</name>
     </types>
-    <version>31.0</version>
+    <version>36.0</version>
 </Package>
