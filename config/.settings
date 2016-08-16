@@ -1,0 +1,19 @@
+{
+    "username": "m.salmanzafar@live.com.dev", 
+    "environment": "production", 
+    "project_name": "mydev1", 
+    "workspace": "C:\\Salman\\Mavensmate", 
+    "org_url": "", 
+    "namespace": "", 
+    "id": "H6UU6M91YZS7HLV82LT72VO345OBD2CG", 
+    "metadata_container": "1dc90000000SblGAAS", 
+    "subscription": [
+        "ApexClass", 
+        "ApexComponent", 
+        "ApexPage", 
+        "ApexTrigger", 
+        "StaticResource", 
+        "CustomObject", 
+        "Profile"
+    ]
+}
